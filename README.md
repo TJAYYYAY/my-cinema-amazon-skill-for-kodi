@@ -3,21 +3,19 @@
 ![Python](https://img.shields.io/badge/Python-3.9-blue?logo=python&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Nvidia%20Shield-76B900?logo=nvidia&logoColor=white)
-![Language](https://img.shields.io/badge/Language-French%20Only-red)
+![Language](https://img.shields.io/badge/Language-English%20%2F%20French-blue)
 ![Vibe Coding](https://img.shields.io/badge/Built%20with-Google%20Gemini-8E75B2)
 
 **Dockerized middleware to start movies or series within FenLight Kodi add-on on Nvidia Shield via an Alexa skill.**
 
 This project features intelligent power management (ADB/WoL), TMDB series and movie lookup, Trakt.tv resume sync, and automated Fen Light add-on patching to allow use by external players (TMDB Helper).
 
-> ⚠️ **Note:** The Alexa interaction model and voice commands provided in this repository are currently available in **French only**.
-
 ## ✨ Key Features
 
-* **🗣️ Natural Voice Control:** *"Alexa, demande à Mon Cinéma de lancer The Witcher."*
+* **🗣️ Multi-Language Voice Control:** Supports **English** and **French** natively. The skill detects the language of the request and responds accordingly.
 * **⚡ Smart Power Management:** Automatically wakes up the Nvidia Shield (WoL) and launches the Kodi app (ADB) before executing commands.
-* **🧠 Trakt.tv Integration:** Smart resume features. Ask to "Resume [Show]" and it plays the specific *Next Up* episode from your Trakt history.
-* **🔍 TMDB Search:** Accurate identification of media content (Movies vs Shows).
+* **🧠 Trakt.tv Integration:** Smart resume features. Ask to *"Resume [Show]"* and it plays the specific *Next Up* episode from your Trakt history.
+* **🔍 TMDB Search:** Accurate identification of media content (Movies vs Shows) with multi-language metadata support.
 * **🛠️ Fen Light Auto-Patcher:** Includes a background scheduler that automatically patches the *Fen Light* addon to allow external calls (via TMDB Helper), ensuring playback works even after addon updates.
 * **🎛️ Dual Playback Modes:** Choose between **Auto-Play** (instant launch) or **Source Select** (manual quality selection) via voice commands.
 
@@ -81,8 +79,8 @@ services:
       - PLAYER_DEFAULT=fenlight_auto.json
       - PLAYER_SELECT=fenlight_select.json
       
-      # --- DEBUG ---
-      - DEBUG_MODE=false
+      # --- DEBUG (Optional) ---
+      - DEBUG_MODE=false # Set to true for verbose logs (Alexa JSON, etc.)
 ```
 
 ### 3. Alexa Skill Setup
@@ -93,17 +91,15 @@ services:
 4.  **Interaction Model:** Create the Intents (`PlayMovieIntent`, `PlayTVShowIntent`, `ResumeTVShowIntent`) using the utterance lists provided in this repository's `speech_assets` folder.
 5.  **Slots:** Ensure you create a slot type named `SourceMode` to handle manual selection requests (values: "manually", "select source", "avec choix", etc.).
 
-## 🗣️ Usage Examples (French)
+## 🗣️ Usage Examples
 
-Since this skill is currently localized for French users, here are the commands you should use:
-
-| Action | Voice Command (French) |
+| Action | Voice Command (Example) |
 | :--- | :--- |
-| **Launch a Movie** | *"Alexa, demande à Mon Cinéma de lancer Avatar."* |
-| **Launch a Show** | *"Alexa, demande à Mon Cinéma de lancer The Witcher."* |
-| **Specific Episode** | *"Alexa, demande à Mon Cinéma de lancer Friends, Saison 5 Épisode 10."* |
-| **Resume (Trakt)** | *"Alexa, demande à Mon Cinéma de reprendre Breaking Bad."* |
-| **Manual Select** | *"Alexa, demande à Mon Cinéma de lancer Inception **avec choix**."* |
+| **Launch a Movie** | *"Alexa, ask My Cinema to play Avatar."* |
+| **Launch a Show** | *"Alexa, ask My Cinema to play The Witcher."* |
+| **Specific Episode** | *"Alexa, ask My Cinema to play Friends, Season 5 Episode 10."* |
+| **Resume (Trakt)** | *"Alexa, ask My Cinema to resume Breaking Bad."* (Plays the next unwatched episode) |
+| **Manual Select** | *"Alexa, ask My Cinema to play Inception **manually**."* (Forces source selection list) |
 
 ## 🔧 Technical Details
 
@@ -125,3 +121,6 @@ The script uses a hybrid approach to ensure the Shield is ready before sending t
 **This project is a pure "Vibe Coding" experiment.**
 
 It was entirely architected, debugged, and refined through a continuous natural language dialogue with **Google Gemini**. No manual coding was performed; the human acted as the conductor, and the AI as the expert developer.
+
+## 📄 License
+[MIT License](LICENSE)
