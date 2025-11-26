@@ -5,6 +5,7 @@
 ![Platform](https://img.shields.io/badge/Platform-Nvidia%20Shield-76B900?logo=nvidia&logoColor=white)
 ![Language](https://img.shields.io/badge/Language-English%20%2F%20French-blue)
 ![Vibe Coding](https://img.shields.io/badge/Built%20with-Google%20Gemini-8E75B2)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-orange?logo=buymeacoffee&logoColor=white)](https://buymeacoffee.com/ripleyxlr8)
 
 **Dockerized middleware to start movies or series within FenLight Kodi add-on on Nvidia Shield via an Alexa skill.**
 
@@ -82,10 +83,9 @@ services:
       # --- DEBUG (Optional) ---
       - DEBUG_MODE=false # Set to true for verbose logs (Alexa JSON, etc.)
 ```
-
 ### 3. Alexa Skill Setup
 1.  Go to the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask) and create a **Custom Skill**.
-2.  **Invocation Name:** Choose something simple like "my cinema" or "mon cinéma".
+2.  **Invocation Name:** Choose something simple like "my cinema" (EN) or "mon cinéma" (FR).
 3.  **Endpoint:** Point it to your server's public HTTPS URL (e.g., using Cloudflare Tunnel): 
     `https://your-domain.com/alexa-webhook`
 4.  **Interaction Model:** Create the Intents (`PlayMovieIntent`, `PlayTVShowIntent`, `ResumeTVShowIntent`) using the utterance lists provided in this repository's `speech_assets` folder.
@@ -93,22 +93,27 @@ services:
 
 ## 🗣️ Usage Examples
 
-| Action | Voice Command (Example) |
-| :--- | :--- |
-| **Launch a Movie** | *"Alexa, ask My Cinema to play Avatar."* |
-| **Launch a Show** | *"Alexa, ask My Cinema to play The Witcher."* |
-| **Specific Episode** | *"Alexa, ask My Cinema to play Friends, Season 5 Episode 10."* |
-| **Resume (Trakt)** | *"Alexa, ask My Cinema to resume Breaking Bad."* (Plays the next unwatched episode) |
-| **Manual Select** | *"Alexa, ask My Cinema to play Inception **manually**."* (Forces source selection list) |
+The skill automatically responds in the language used to invoke it.
+
+| Action | English Command | Commande Française |
+| :--- | :--- | :--- |
+| **Launch a Movie** | *"Alexa, ask My Cinema to play Avatar."* | *"Alexa, demande à Mon Cinéma de lancer Avatar."* |
+| **Launch a Show** | *"Alexa, ask My Cinema to play The Witcher."* | *"Alexa, demande à Mon Cinéma de lancer The Witcher."* |
+| **Specific Episode** | *"Alexa, ask My Cinema to play Friends, Season 5 Episode 10."* | *"Alexa, demande à Mon Cinéma de lancer Friends, Saison 5 Épisode 10."* |
+| **Resume (Trakt)** | *"Alexa, ask My Cinema to resume Breaking Bad."* | *"Alexa, demande à Mon Cinéma de reprendre Breaking Bad."* |
+| **Manual Select** | *"Alexa, ask My Cinema to play Inception **manually**."* | *"Alexa, demande à Mon Cinéma de lancer Inception **avec choix**."* |
 
 ## 🔧 Technical Details
 
 ### The Fen Light Auto-Patcher
-Fen Light restricts external playback calls by default to prevent usage by widgets/skins it doesn't support. This middleware includes a background thread that:
+Fen Light restricts external playback calls by default. This middleware includes a background thread that:
 1.  Connects to the Shield via ADB every hour.
 2.  Pulls the `sources.py` file from the addon directory.
 3.  Detects if the blocking code block (`WARNING: External Playback Detected`) is active.
 4.  Patches the file (comments out the restriction) and pushes it back to the Shield transparently.
+
+### Localization System
+The application uses a `translations.json` file to store responses. It parses the locale received in the Alexa JSON request (e.g., `fr-FR` or `en-US`) and serves the appropriate response string. Metadata from TMDB is also fetched in the requested language.
 
 ### Power Management
 The script uses a hybrid approach to ensure the Shield is ready before sending the command:
@@ -122,5 +127,6 @@ The script uses a hybrid approach to ensure the Shield is ready before sending t
 
 It was entirely architected, debugged, and refined through a continuous natural language dialogue with **Google Gemini**. No manual coding was performed; the human acted as the conductor, and the AI as the expert developer.
 
-## 📄 License
-[MIT License](LICENSE)
+---
+**Enjoying this project?** If this tool helps you tame your Home Cinema, consider supporting the updates!  
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/ripleyxlr8)
