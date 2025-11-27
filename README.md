@@ -30,7 +30,7 @@ This project features intelligent power management (ADB/WoL), TMDB series and mo
 * **Software:** Kodi (v19 or newer).
 * **Addons:**
     * `plugin.video.themoviedb.helper` (TMDB Helper).
-    * `plugin.video.fenlight` (Fen Light).
+    * `plugin.video.fenlight` (Fen Light or your favorite Kodi video player add-on).
 * **Accounts:**
     * [TMDB API Key](https://www.themoviedb.org/documentation/api).
     * [Trakt.tv Client ID](https://trakt.tv/oauth/apps) (for API access).
